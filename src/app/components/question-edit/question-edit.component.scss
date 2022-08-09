@@ -1,0 +1,53 @@
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+  }
+
+
+.add{
+  margin-left: 20px;
+  height: 45px;
+  width: 90px;
+}
+
+.selector{
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 4px;
+  margin-left: -40px;
+}
+
+.sel{
+  margin: 10px;
+}
+
+.example-radio-button{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+mat-checkbox {
+  margin-right: 10px;
+}
+
+mult-inp{
+  margin-left: 10px;
+}
+
+.wrapper{
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.text{
+  color: black;
+}

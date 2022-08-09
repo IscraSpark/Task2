@@ -1,0 +1,39 @@
+<div class="wrapper">
+  <app-nav></app-nav>
+
+
+  <mat-card *ngFor="let card of cards.reverse()">
+    <mat-card-title>Question card{{card.id}}</mat-card-title>
+    <mat-card-subtitle>Date: {{card.date | date}}</mat-card-subtitle>
+      <mat-form-field appearance="fill">
+        <mat-label></mat-label>
+        <input class="text" matInput [(ngModel)]="card.question" disabled="true">
+      </mat-form-field>
+      <div class = 'single'>
+        <mat-radio-group class="example-radio-group"  aria-label="Select an option">
+          <mat-radio-button *ngFor="let variant of card.single" value="1" disabled="true">
+            <p class="text">{{variant.value}}</p>
+        </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="multiple">
+        <ul>
+          <li *ngFor="let variant of card.multiple">
+          <mat-checkbox disabled="true">
+            <p class="text">{{variant.value}}</p>
+          </mat-checkbox>
+        </li>
+      </ul>  
+      </div>
+      <div class="open">
+        <mat-form-field *ngIf="card.open" appearance="fill">
+          <mat-label ></mat-label>
+          <input class="text" matInput disabled="true" disabled="true">
+      </mat-form-field>
+      </div>
+    <mat-card-actions align="end">
+      <button mat-button (click)="delete(card.id)">Delete</button>
+      <button mat-button (click)="edit(card.id)">Edit</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
