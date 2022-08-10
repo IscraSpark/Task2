@@ -22,6 +22,7 @@ export interface Open{
 
 export interface Card{
     id: number;
+    type: string;
     question: string;
     single: Svariant[];
     singleValue?: number | undefined;

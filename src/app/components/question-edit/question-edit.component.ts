@@ -35,6 +35,7 @@ export class QuestionEditComponent implements OnInit {
 
     this.idsingle = this.findMax(this.card.single);
     this.idmultipe = this.findMax(this.card.multiple);
+    
     if (this.card.multiple.length)
     {
       this.questionType = this.elementsList[1];

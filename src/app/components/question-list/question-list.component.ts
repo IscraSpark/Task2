@@ -17,11 +17,12 @@ export class QuestionListComponent implements OnInit {
   element: Svariant | undefined;
   valid: boolean = false;
   validatedCard!: number;
+  abled = new Set<number>;
   radioData: RadioData[] = [];
   box: CheckBoxData[] = [];
   openAnswer: Open[] = [];
   form: FormGroup = new FormGroup({
-  open: new FormControl('', [Validators.required]),
+  open: new FormControl('', [Validators.required, Validators.maxLength(255)]),
   radio: new FormControl('', [Validators.required]),
   });
 
@@ -37,7 +38,6 @@ export class QuestionListComponent implements OnInit {
     card.multipleValue = undefined;
     card.openValue = undefined;
     card.singleValue = undefined;
-    console.log(card);
     
     this.lsServise.saveEdit(card.id, card);
     let index: number = this.answered.findIndex(el => el.id == card.id);
@@ -66,6 +66,8 @@ export class QuestionListComponent implements OnInit {
     this.radioData.splice(ind, 1);
     ind = this.openAnswer.findIndex(el => el.cardid == card.id);
     this.openAnswer.splice(ind, 1);
+    this.abled.delete(card.id);
+
     
     this.lsServise.saveEdit(card.id, card);
     let index: number = this.unanswered.findIndex(el => el.id == card.id)
@@ -98,7 +100,9 @@ export class QuestionListComponent implements OnInit {
     this.submit(card);
   }
 
-  onChange(e: any, id: number){
+  onChange(e: any, card: Card){
+    let id: number = card.id;
+    
      if (this.radioData.find(el => el.cardid == id))
      {
       this.radioData.find(el =>{
@@ -110,29 +114,37 @@ export class QuestionListComponent implements OnInit {
      } else {
       this.radioData.push({ cardid: id, radio: e.source.value});
      }  
+     this.abled.add(id);
   }
 
-  onChangeMultiple(e: any, id: number, variant: Svariant){
+  onChangeMultiple(e: any, card: Card, variant: Svariant){
+    let id: number = card.id;
     
     if (!e.source._checked)
     { 
-      let index = this.box.findIndex(el =>{
+      let index: number= this.box.findIndex(el =>{
+        
         if(el.cardid == id)
         {
-          if(el.box.findIndex(val => val.id == variant.id))
+          
+          if(el.box.findIndex(val => val.id == variant.id) || el.box.findIndex(val => val.id == variant.id) == 0)
           {
-            return el.cardid;
+            
+            return el;
+                       
           }
+          
         }
         return false;
       })
 
       let secind = this.box[index].box.findIndex(el => el.id == variant.id);
       this.box[index].box.splice(secind, 1);
-
+      
       if(!this.box[index].box.length)
       {
-        this.box.splice(index, 1)
+        this.box.splice(index, 1);
+        this.abled.delete(id);
       }
     } else {
       if(this.box.find(el => el.cardid == id))
@@ -142,16 +154,24 @@ export class QuestionListComponent implements OnInit {
       } else {
         this.box.push({cardid: id, box: [variant]})
       }
+      this.abled.add(id);
     }
     
   }
 
-  openChange(e: any, id: number){
+  openChange(e: any, card: Card){
+    let id: number = card.id;
+    this.abled.add(id);
     if (this.openAnswer.find(el => el.cardid == id))
      {
       let index = this.openAnswer.findIndex(el => el.cardid == id)
       this.openAnswer[index].value = e.target.value;
+      console.log(e.target.value);
       
+      if (this.openAnswer[index].value = ' ')
+      {
+        this.abled.delete(id);
+      }
      } else {
       this.openAnswer.push({cardid: id, value: e.target.value})
      }
@@ -175,4 +195,11 @@ export class QuestionListComponent implements OnInit {
     }
   }
 
+  disabled(id: number): boolean{
+    if (this.abled.has(id))
+    {
+      return false;
+    }
+    return true;
+  }
 }

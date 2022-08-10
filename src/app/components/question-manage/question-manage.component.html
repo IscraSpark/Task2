@@ -4,7 +4,7 @@
 
   <mat-card *ngFor="let card of cards.reverse()">
     <mat-card-title>Question card{{card.id}}</mat-card-title>
-    <mat-card-subtitle>Date: {{card.date | date}}</mat-card-subtitle>
+    <mat-card-subtitle>Date: {{card.date | date}}, type: {{card.type}}</mat-card-subtitle>
       <mat-form-field appearance="fill">
         <mat-label></mat-label>
         <input class="text" matInput [(ngModel)]="card.question" disabled="true">

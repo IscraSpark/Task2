@@ -78,6 +78,7 @@ export class CreateQuestionComponent implements OnInit {
     let date: number = Date.now();
     let card: Card = {
       id: cardid,
+      type: this.element,
       question: this.question,
       single: this.svariants,
       multiple: this.mvariants,

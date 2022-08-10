@@ -12,7 +12,7 @@
                 </mat-form-field>
                 <div class = 'single'>
                   <mat-radio-group formControlName="radio" class="example-radio-group"  aria-label="Select an option">
-                    <mat-radio-button  *ngFor="let variant of card.single" [value]="variant" (change)="onChange($event, card.id)" [checked]="checked">
+                    <mat-radio-button  *ngFor="let variant of card.single" [value]="variant" (change)="onChange($event, card)" [checked]="checked">
                       <p>{{variant.value}}</p>
                   </mat-radio-button>
                   </mat-radio-group>
@@ -20,7 +20,7 @@
                 <div class="multiple">
                   <ul>
                     <li *ngFor="let variant of card.multiple">
-                    <mat-checkbox  (change)="onChangeMultiple($event, card.id, variant)">
+                    <mat-checkbox  (change)="onChangeMultiple($event, card, variant)">
                       <p>{{variant.value}}</p>
                     </mat-checkbox>
                   </li>
@@ -30,13 +30,13 @@
                 <div class="open">
                   <mat-form-field *ngIf="card.open" appearance="fill">
                     <mat-label >input your answer</mat-label>
-                    <input class="text" matInput formControlName="open" placeholder="input your answer" (change)="openChange($event, card.id)">
+                    <input class="text" matInput formControlName="open" placeholder="input your answer" (change)="openChange($event, card)">
                 </mat-form-field>
                 <mat-error *ngIf="valid && card.id == validatedCard">need answer</mat-error>
                 </div>
               </form>
               <mat-card-actions align="end">
-                <button mat-button type="submit" form="unanswered" (click)="validate(card)">Submit</button>
+                <button mat-button type="submit" form="unanswered" (click)="validate(card)" [disabled]="disabled(card.id)">Submit</button>
               </mat-card-actions>
             </mat-card>
       </div>
