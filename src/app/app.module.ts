@@ -14,6 +14,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MaterialExampleModule } from 'src/material.module';
 import { NavComponent } from './components/nav/nav.component';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
+import { MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,12 @@ import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,
     useValue: { color: 'warn' },
-}],
+  },
+  {
+    provide: MAT_CHECKBOX_DEFAULT_OPTIONS,
+    useValue: { color: 'warn' },
+  }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
