@@ -15,17 +15,27 @@ export class CreateQuestionComponent implements OnInit {
   element!: string;
   question: string = 'Input your question';
   singles: Svariant[] = [];
-  svariants: Svariant[] = [];
-  mvariants: Svariant[] = [];
   elements = new FormControl('');
   elementsList: string[] = ['single', 'multiple', 'open'];
   idsingle: number = 0;
   idmultipe: number =0;
-  openid: boolean = false;
   disableRadio: boolean = false;
+  card!: Card;
+
   constructor(private lsService: LocalstorageService, private router: Router) { }
 
   ngOnInit(): void {
+    this.card = {
+      id: 0,
+      type: '',
+      question: this.question,
+      single: [],
+      multiple: [],
+      open: false,
+      date: 0,
+      answered: false,
+      answerDate: undefined,
+    }
   }
   
   add(){
@@ -45,26 +55,26 @@ export class CreateQuestionComponent implements OnInit {
 
   addSingle(){
     let variant: Svariant = ({value:'add answer'+this.idsingle, id: this.idsingle});
-    this.svariants.push(variant);
     this.idsingle++;
-    if(this.svariants.length == 1){
+    this.card.single.push(variant);
+    if(this.card.single.length == 1){
       this.addSingle();
     }
   }
 
   addMultiple(){
     let variant: Svariant = ({value:'add answer'+this.idmultipe, id: this.idmultipe});
-    this.mvariants.push(variant);
     this.idmultipe++;
-    if(this.mvariants.length == 1){
+    this.card.multiple.push(variant);
+    if(this.card.multiple.length == 1){
       this.addMultiple();
     }
   }
 
   addOpen(){
-    if(!this.openid)
+    if(!this.card.open)
     {
-      this.openid = true;
+      this.card.open = true;
     }
   }
 
@@ -76,27 +86,19 @@ export class CreateQuestionComponent implements OnInit {
     }
     
     let date: number = Date.now();
-    let card: Card = {
-      id: cardid,
-      type: this.element,
-      question: this.question,
-      single: this.svariants,
-      multiple: this.mvariants,
-      open: this.openid,
-      date: date,
-      answered: false,
-      answerDate: undefined,
-    }
-    this.lsService.addCard(card);
+    this.card.id = cardid;
+    this.card.type = this.element;
+    this.card.date = date;
+    this.lsService.addCard(this.card);
     cardid++;
     this.lsService.setNewId(cardid);
     this.router.navigateByUrl('/manage');
   }
   
   clear(){
-    this.svariants = [];
-    this.mvariants = [];
-    this.question = 'Input your question';
-    this.openid = false;
+    this.card.single = [];
+    this.card.multiple = [];
+    this.card.open = false;
+    this.card.question = 'Input your question';
   }
 }

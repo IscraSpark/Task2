@@ -21,40 +21,38 @@
   <mat-card>
       <mat-card-title>Question card</mat-card-title>
       <mat-card-subtitle>there will be date</mat-card-subtitle>
-      <form>
         <mat-form-field appearance="fill">
           <mat-label>Input your question</mat-label>
-          <input class="text" matInput [(ngModel)]="question" [ngModelOptions]="{standalone: true}">
+          <input class="text" matInput [(ngModel)]="card.question">
         </mat-form-field>
         <div class = 'single'>
           <mat-radio-group class="example-radio-group"  aria-label="Select an option">
-            <mat-radio-button *ngFor="let variant of svariants" value="1" disabled="true">
+            <mat-radio-button *ngFor="let variant of card.single" value="1" disabled="true">
               <mat-form-field appearance="fill">
                 <mat-label >add answer</mat-label>
-                <input class="text" matInput [(ngModel)]="variant.value" [ngModelOptions]="{standalone: true}">
+                <input class="text" matInput [(ngModel)]="variant.value">
             </mat-form-field>
           </mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="multiple">
           <ul>
-            <li *ngFor="let variant of mvariants">
+            <li *ngFor="let variant of card.multiple">
               <mat-checkbox disabled="true">
               <mat-form-field appearance="fill">
                 <mat-label >add answer</mat-label>
-                <input class="text" matInput [(ngModel)]="variant.value" [ngModelOptions]="{standalone: true}">
+                <input class="text" matInput [(ngModel)]="variant.value">
             </mat-form-field>
           </mat-checkbox>
           </li>
         </ul>  
         </div>
         <div class="open">
-          <mat-form-field *ngIf="openid" appearance="fill">
+          <mat-form-field *ngIf="card.open" appearance="fill">
             <mat-label >add answer</mat-label>
             <input class="text" matInput>
         </mat-form-field>
         </div>
-      </form>
       <mat-card-actions align="end">
         <button mat-button (click)="create()">Create</button>
         <button mat-button (click)="clear()">Clear</button>
