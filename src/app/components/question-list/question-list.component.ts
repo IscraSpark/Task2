@@ -45,6 +45,11 @@ export class QuestionListComponent implements OnInit {
     this.unanswered.push(card);
     this.unanswered.sort((a, b) => a.date - b.date);
     this.checked = false;
+
+    if(card.type == 'open')
+    {
+      this.abled.add(card.id)
+    }
   }
 
   submit(card: Card){
@@ -64,8 +69,6 @@ export class QuestionListComponent implements OnInit {
     this.box.splice(ind, 1);
     ind = this.radioData.findIndex(el => el.cardid = card.id);
     this.radioData.splice(ind, 1);
-    ind = this.openAnswer.findIndex(el => el.cardid == card.id);
-    this.openAnswer.splice(ind, 1);
     this.abled.delete(card.id);
 
     
@@ -166,7 +169,6 @@ export class QuestionListComponent implements OnInit {
      {
       let index = this.openAnswer.findIndex(el => el.cardid == id)
       this.openAnswer[index].value = e.target.value;
-      console.log(e.target.value);
       
       if (this.openAnswer[index].value = ' ')
       {

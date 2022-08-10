@@ -30,7 +30,7 @@
                 <div class="open">
                   <mat-form-field *ngIf="card.open" appearance="fill">
                     <mat-label >input your answer</mat-label>
-                    <input class="text" matInput formControlName="open" placeholder="input your answer" (change)="openChange($event, card)">
+                    <input class="text" matInput formControlName="open" placeholder="input your answer" (change)="openChange($event, card)" >
                 </mat-form-field>
                 <mat-error *ngIf="valid && card.id == validatedCard">need answer</mat-error>
                 </div>
