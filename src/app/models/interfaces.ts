@@ -1,32 +1,32 @@
 
-export interface Svariant{
+export interface IVariant{
     value: string;
     id: number;
     
 }
 
-export interface RadioData{
+export interface IRadioData{
     cardid: number;
-    radio: Svariant;
+    radio: IVariant;
 }
 
-export interface CheckBoxData{
+export interface ICheckBoxData{
     cardid: number;
-    box: Svariant[];
+    box: IVariant[];
 }
 
-export interface Open{
+export interface IOpen{
     cardid: number;
     value: string;
 }
 
-export interface Card{
+export interface ICard{
     id: number;
     type: string;
     question: string;
-    single: Svariant[];
+    single: IVariant[];
     singleValue?: number | undefined;
-    multiple: Svariant[];
+    multiple: IVariant[];
     multipleValue?: number[] | undefined;
     open: boolean;
     openValue?: string | undefined;

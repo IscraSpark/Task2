@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Card, Svariant } from 'src/app/models/interfaces';
+import { ICard, IVariant } from 'src/app/models/interfaces';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 
 
@@ -15,12 +15,12 @@ import { LocalstorageService } from 'src/app/services/localstorage.service';
 export class QuestionEditComponent implements OnInit {
   elementsList: string[] = ['single', 'multiple', 'open'];
   element!: string;
-  idsingle: number = 0;
-  idmultipe: number =0;
-  openid: boolean = false;
+  singleId: number = 0;
+  multipleId: number = 0;
+  openId: boolean = false;
   questionType!: string;
   
-  card!: Card;
+  card!: ICard;
   id!: number;
 
   constructor(
@@ -33,24 +33,11 @@ export class QuestionEditComponent implements OnInit {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     this.card = this.lsService.getCardById(this.id);
 
-    this.idsingle = this.findMax(this.card.single);
-    this.idmultipe = this.findMax(this.card.multiple);
+    this.singleId = this.findMax(this.card.single);
+    this.multipleId = this.findMax(this.card.multiple);
     
-    if (this.card.multiple.length)
-    {
-      this.questionType = this.elementsList[1];
-      this.element = this.elementsList[1];
-    }
-    if (this.card.single.length)
-    {
-      this.questionType = this.elementsList[0];
-      this.element = this.elementsList[0];
-    }
-    if (this.card.open)
-    {
-      this.questionType = this.elementsList[2];
-      this.element = this.elementsList[2];
-    }
+    this.questionType = this.card.type;
+    this.element = this.card.type;
 
   }
 
@@ -71,42 +58,39 @@ export class QuestionEditComponent implements OnInit {
     if (this.element == 'single'){
       this.addSingle();
     }
-    if(this.element == 'multiple')
-    {
+    if(this.element == 'multiple'){
       this.addMultiple();
     }
-    if(this.element == 'open')
-    {
+    if(this.element == 'open'){
       this.addOpen();
     }
   }
 
   addSingle(){
-    let variant: Svariant = ({value:'add answer'+this.idsingle, id: this.idsingle});
+    let variant: IVariant = ({value:'add answer'+this.singleId, id: this.singleId});
     this.card.single.push(variant);
-    this.idsingle++;
+    this.singleId++;
     if(this.card.single.length == 1){
       this.addSingle();
     }
   }
 
   addMultiple(){
-    let variant: Svariant = ({value:'add answer'+this.idmultipe, id: this.idmultipe});
+    let variant: IVariant = ({value:'add answer'+this.multipleId, id: this.multipleId});
     this.card.multiple.push(variant);
-    this.idmultipe++;
+    this.multipleId++;
     if(this.card.multiple.length == 1){
       this.addMultiple();
     }
   }
 
   addOpen(){
-    if(!this.card.open)
-    {
+    if(!this.card.open){
       this.card.open = true;
     }
   }
 
-  findMax(list: Svariant[]){
+  findMax(list: IVariant[]){
     let id: number =0;
     for (let el of list){
       if (el.id > id){

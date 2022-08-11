@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Card } from '../models/interfaces';
+import { ICard } from '../models/interfaces';
 
 
 @Injectable({
@@ -10,8 +10,6 @@ export class LocalstorageService {
 
   constructor() { }
 
-  //private cardForEdit!: number;
-
   getId(): number{
     return JSON.parse(localStorage.getItem('id') as string)
   }
@@ -20,14 +18,13 @@ export class LocalstorageService {
     localStorage.setItem('id', JSON.stringify(id))
   }
 
-  addCard(card: Card){
-    if(!JSON.parse(localStorage.getItem('cards') as string))
-    {
-      localStorage.setItem('cards', JSON.stringify([card]))
+  addCard(card: ICard){
+    if(!JSON.parse(localStorage.getItem('cards') as string)){
+      localStorage.setItem('cards', JSON.stringify([card]));
     } else {
-      let cardList = JSON.parse(localStorage.getItem('cards') as string)
-      cardList.push(card)
-      localStorage.setItem('cards', JSON.stringify(cardList))
+      let cardList = JSON.parse(localStorage.getItem('cards') as string);
+      cardList.push(card);
+      localStorage.setItem('cards', JSON.stringify(cardList));
     }
   }
 
@@ -36,28 +33,20 @@ export class LocalstorageService {
   }
 
   deleteCard(id: number){
-    let cards: Card [] = this.getCards();
+    let cards: ICard [] = this.getCards();
     let index: number = cards.findIndex(card => card.id == id);
-    cards.splice(index, 1)
-    localStorage.setItem('cards', JSON.stringify(cards))
+    cards.splice(index, 1);
+    localStorage.setItem('cards', JSON.stringify(cards));
   }
 
-  // setForEdit(id:number){
-  //   this.cardForEdit = id
-  // }
-
-  // getCardForEdit(): number{
-  //   return this.cardForEdit
-  // }
-
-  getCardById(id: number): Card{
-    let cards: Card [] = this.getCards();
+  getCardById(id: number): ICard{
+    let cards: ICard [] = this.getCards();
     let index: number = cards.findIndex(card => card.id == id);
-    return cards[index]
+    return cards[index];
   }
 
-  saveEdit(id: number, card: Card){
-    let cards: Card [] = this.getCards();
+  saveEdit(id: number, card: ICard){
+    let cards: ICard [] = this.getCards();
     let index: number = cards.findIndex(card => card.id == id);
     cards[index] = card;
     localStorage.setItem('cards', JSON.stringify(cards));

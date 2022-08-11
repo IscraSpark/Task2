@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Card, Svariant } from 'src/app/models/interfaces';
+import { ICard, IVariant } from 'src/app/models/interfaces';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 
 
@@ -14,13 +14,12 @@ import { LocalstorageService } from 'src/app/services/localstorage.service';
 export class CreateQuestionComponent implements OnInit {
   element!: string;
   question: string = 'Input your question';
-  singles: Svariant[] = [];
   elements = new FormControl('');
   elementsList: string[] = ['single', 'multiple', 'open'];
-  idsingle: number = 0;
-  idmultipe: number =0;
+  singleId: number = 0;
+  multipleId: number =0;
   disableRadio: boolean = false;
-  card!: Card;
+  card!: ICard;
 
   constructor(private lsService: LocalstorageService, private router: Router) { }
 
@@ -43,19 +42,17 @@ export class CreateQuestionComponent implements OnInit {
     if (this.element == 'single'){
       this.addSingle();
     }
-    if(this.element == 'multiple')
-    {
+    if(this.element == 'multiple'){
       this.addMultiple();
     }
-    if(this.element == 'open')
-    {
+    if(this.element == 'open'){
       this.addOpen();
     }
   }
 
   addSingle(){
-    let variant: Svariant = ({value:'add answer'+this.idsingle, id: this.idsingle});
-    this.idsingle++;
+    let variant: IVariant = ({value:'add answer'+this.singleId, id: this.singleId});
+    this.singleId++;
     this.card.single.push(variant);
     if(this.card.single.length == 1){
       this.addSingle();
@@ -63,8 +60,8 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   addMultiple(){
-    let variant: Svariant = ({value:'add answer'+this.idmultipe, id: this.idmultipe});
-    this.idmultipe++;
+    let variant: IVariant = ({value:'add answer'+this.multipleId, id: this.multipleId});
+    this.multipleId++;
     this.card.multiple.push(variant);
     if(this.card.multiple.length == 1){
       this.addMultiple();
@@ -72,8 +69,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   addOpen(){
-    if(!this.card.open)
-    {
+    if(!this.card.open){
       this.card.open = true;
     }
   }

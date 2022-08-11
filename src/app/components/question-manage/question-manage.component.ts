@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Card } from 'src/app/models/interfaces';
+import { ICard } from 'src/app/models/interfaces';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 
 @Component({
@@ -16,12 +16,13 @@ export class QuestionManageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  cards: Card[] = this.lsServise.getCards()
+  cards: ICard[] = this.lsServise.getCards()
 
   delete(id: number){
     this.lsServise.deleteCard(id);
     this.cards = this.lsServise.getCards();
   }
+  
   edit(id: number){
     this.router.navigateByUrl('/edit/'+id) ;
   }
