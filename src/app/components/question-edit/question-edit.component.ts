@@ -195,7 +195,7 @@ export class QuestionEditComponent implements OnInit {
     this.singleId++;
     this.addSingleForm(variant);
 
-    if (this.card.single.length == 1) {
+    if (this.singleId == 1) {
       this.addSingle();
     }
   }
@@ -208,7 +208,7 @@ export class QuestionEditComponent implements OnInit {
     this.multipleId++;
     this.addMultipleForm(variant);
 
-    if (this.card.multiple.length == 1) {
+    if (this.multipleId == 1) {
       this.addMultiple();
     }
   }
