@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CreateQuestionComponent } from './components/create-question/create-question.component';
 import { QuestionManageComponent } from './components/question-manage/question-manage.component';
 import { QuestionEditComponent } from './components/question-edit/question-edit.component';
 import { QuestionListComponent } from './components/question-list/question-list.component';
@@ -15,15 +14,16 @@ import { MaterialExampleModule } from 'src/material.module';
 import { NavComponent } from './components/nav/nav.component';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreateQuestionComponent,
     QuestionManageComponent,
     QuestionEditComponent,
     QuestionListComponent,
-    NavComponent
+    NavComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,

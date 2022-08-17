@@ -1,0 +1,46 @@
+<form id="unanswered" [formGroup]="form">
+  <p class="question">{{ form.controls["question"].value }}</p>
+
+  <div class="single" formArrayName="singles">
+    <div *ngFor="let single of singles.controls; let i = index">
+      <div [formGroupName]="i">
+        <mat-radio-group
+          class="example-radio-group"
+          name="radio {{ card.id }}"
+          aria-label="Select an option"
+          formControlName="radio"
+        >
+          <mat-radio-button name="radio {{ card.id }}" [value]="true">
+            {{ single.get("text")?.value }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </div>
+
+  <div class="multiple" formArrayName="multiples">
+    <ul>
+      <li *ngFor="let multiple of multiples.controls; let j = index">
+        <div [formGroupName]="j">
+          <mat-checkbox formControlName="inp">
+            {{ multiple.get("text")?.value }}
+          </mat-checkbox>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="open" formArrayName="open">
+    <div *ngFor="let op of open.controls; let ind = index">
+      <mat-form-field appearance="fill">
+        <mat-label>input your answer</mat-label>
+        <input
+          class="text"
+          matInput
+          [formControlName]="ind"
+          placeholder="input your answer"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+</form>

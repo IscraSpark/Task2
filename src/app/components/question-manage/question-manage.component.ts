@@ -7,24 +7,26 @@ import { LocalstorageService } from 'src/app/services/localstorage.service';
 @Component({
   selector: 'app-question-manage',
   templateUrl: './question-manage.component.html',
-  styleUrls: ['./question-manage.component.scss']
+  styleUrls: ['./question-manage.component.scss'],
 })
 export class QuestionManageComponent implements OnInit {
+  cards: ICard[] = this.lsServise.getCards();
 
-  constructor(private lsServise: LocalstorageService, private router: Router) { }
+  constructor(private lsServise: LocalstorageService, private router: Router) {}
 
   ngOnInit(): void {
+    if (this.cards) {
+      this.cards.reverse();
+    }
   }
 
-  cards: ICard[] = this.lsServise.getCards()
-
-  delete(id: number){
+  delete(id: number) {
     this.lsServise.deleteCard(id);
     this.cards = this.lsServise.getCards();
-  }
-  
-  edit(id: number){
-    this.router.navigateByUrl('/edit/'+id) ;
+    this.cards.reverse();
   }
 
+  edit(id: number) {
+    this.router.navigateByUrl('/edit/' + id);
+  }
 }

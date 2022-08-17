@@ -1,11 +1,18 @@
-.add{
-    margin-left: 20px;
-    height: 45px;
-    width: 90px;
+.wrap{
+    display: flex;
 }
 
-.selector{
+.field{
+    width:50%;
+    display: block;
+    flex: left;
+}
+
+mat-card{
     margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .example-radio-group {
@@ -15,23 +22,19 @@
     align-items: flex-start;
   }
 
-.sel{
-    margin: 10px;
-}
 
-.example-radio-button{
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-ul {
+  ul {
     list-style-type: none;
     margin-top: 4px;
     margin-left: -40px;
-}
+  }
 
 mat-checkbox{
     margin-right: 10px;
+}
+
+.text{
+    color:black;
 }
 
 .wrapper{
@@ -43,10 +46,7 @@ mat-checkbox{
 
 }
 
-.text{
-    color: black;
-}
-
-mat-card{
-    margin-left: 5px;
+.question{
+    margin-top: 30px;
+    margin-bottom: 20px;
 }

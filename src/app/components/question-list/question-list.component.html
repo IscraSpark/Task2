@@ -1,75 +1,34 @@
-<div class="wrapper">
-  <app-nav></app-nav>
-  <div class="wrap">
-      <div class="field">
-          <mat-card *ngFor="let card of unanswered.reverse()">
-              <mat-card-title>Question card{{card.id}}</mat-card-title>
-              <mat-card-subtitle>Date: {{card.date | date}}</mat-card-subtitle>
-              <form id='unanswered' [formGroup]="form">
-                <p class="question">{{card.question}}</p>
-                <div class = 'single'>
-                  <mat-radio-group formControlName="radio" class="example-radio-group"  aria-label="Select an option">
-                    <mat-radio-button  *ngFor="let variant of card.single" [value]="variant" (change)="onChange($event, card)" [checked]="checked">
-                      <p>{{variant.value}}</p>
-                  </mat-radio-button>
-                  </mat-radio-group>
-                </div>
-                <div class="multiple">
-                  <ul>
-                    <li *ngFor="let variant of card.multiple">
-                    <mat-checkbox  (change)="onChangeMultiple($event, card, variant)">
-                      <p>{{variant.value}}</p>
-                    </mat-checkbox>
-                  </li>
-                </ul>  
-                  
-                </div>
-                <div class="open">
-                  <mat-form-field *ngIf="card.open" appearance="fill">
-                    <mat-label >input your answer</mat-label>
-                    <input class="text" matInput formControlName="open" placeholder="input your answer" (change)="openChange($event, card)" >
-                </mat-form-field>
-                <mat-error *ngIf="valid && card.id == validatedCard">need answer</mat-error>
-                </div>
-              </form>
-              <mat-card-actions align="end">
-                <button mat-button type="submit" form="unanswered" (click)="validate(card)" [disabled]="disabled(card.id)">Submit</button>
-              </mat-card-actions>
-            </mat-card>
-      </div>
-      <div class="field">
-          <mat-card *ngFor="let card of answered.reverse()">
-              <mat-card-title>Question card{{card.id}}</mat-card-title>
-              <mat-card-subtitle>Date: {{card.date | date}}, Answer date: {{card.answerDate | date: 'medium'}}</mat-card-subtitle>
-            
-              <p class="question">{{card.question}}</p>
-              <div class = 'single'>
-                <mat-radio-group class="example-radio-group"  aria-label="Select an option">
-                  <mat-radio-button *ngFor="let variant of card.single" [checked]="variant.id == card.singleValue? true: false" disabled="true" [value]="variant.value">
-                    <p>{{variant.value}}</p>
-                  </mat-radio-button>
-                </mat-radio-group>
-              </div>
-              <div class="multiple">
-                <ul>
-                  <li *ngFor="let variant of card.multiple">
-                  <mat-checkbox [checked]="isChecked(card, variant)"  disabled="true">
-                    <p>{{variant.value}}</p>
-                  </mat-checkbox>
-                  </li>
-                </ul>  
-              </div>
-              <div class="open">
-                <mat-form-field *ngIf="card.open" appearance="fill">
-                  <mat-label ></mat-label>
-                  <input matInput disabled="true" [value]="card.openValue">
-              </mat-form-field>
-              </div>
-              
-              <mat-card-actions align="end">
-                <button mat-button (click)="undo(card)">Undo</button>
-              </mat-card-actions>
-            </mat-card>
-      </div>
+<div class="wrap">
+  <div class="field">
+    <mat-card *ngFor="let card of unanswered">
+      <mat-card-title>Question card{{ card.id }}</mat-card-title>
+      <mat-card-subtitle>Date: {{ card.date | date }}</mat-card-subtitle>
+      <app-card [card]="card" (onChanged)="onChanged($event)"></app-card>
+      <mat-card-actions align="end">
+        <button
+          mat-button
+          type="submit"
+          form="unanswered"
+          (click)="submit(card)"
+          [disabled]="disabled(card.id)"
+        >
+          Submit
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="field">
+    <mat-card *ngFor="let card of answered.reverse()">
+      <mat-card-title>Question card{{ card.id }}</mat-card-title>
+      <mat-card-subtitle>
+        Date: {{ card.date | date }}, Answer date:
+        {{ card.answerDate | date: "medium" }}
+      </mat-card-subtitle>
+      <app-card [card]="card"></app-card>
+      <mat-card-actions align="end">
+        <button mat-button (click)="undo(card)">Undo</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </div>

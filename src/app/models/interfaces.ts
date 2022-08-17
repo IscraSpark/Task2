@@ -34,3 +34,8 @@ export interface ICard{
     answered: boolean;
     answerDate?: number | undefined;
 }
+
+export interface IValid{
+    valid: boolean,
+    card: ICard
+}
